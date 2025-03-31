@@ -27,7 +27,7 @@ export const Main = () => {
         </div>
         <p className="text-center z-1 font-medium text-[22px] p-10 mt-auto text-white tracking-tighter">
           Une relation saine. Une expérience
-          <br /> utile. <span className="opacity-70">Trouver le sixième sens de la marque pour <br />faire émerger votre supplément d'âme.</span>
+          <br /> utile. <span className="opacity-70">Trouver le sixième sens de la marque pour <br />faire émerger votre supplément d&apos;âme.</span>
         </p>
       </motion.div>
     </>
