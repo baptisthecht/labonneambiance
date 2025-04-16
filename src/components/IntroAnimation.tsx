@@ -7,21 +7,21 @@ const poppins = Poppins({ weight: '700', subsets: ['latin'] });
 export default function IntroAnimation() {
   // Utiliser un état pour monter le composant seulement côté client
   const [isMounted, setIsMounted] = useState(false);
-  
+
   useEffect(() => {
     setIsMounted(true);
   }, []);
-  
+
   // Ne rien rendre si le composant n'est pas monté (côté serveur)
   if (!isMounted) return null;
-  
-  const text = "la bonne ambiance* ";
-  
+
+  const text = 'la bonne ambiance* ';
+
   // Modification des variants du conteneur pour ajouter le déplacement vers le haut
   const containerVariants: Variants = {
-    initial: { 
+    initial: {
       height: '100dvh',
-      y: 0, 
+      y: 0,
     },
     exit: {
       height: 0,
@@ -33,12 +33,12 @@ export default function IntroAnimation() {
         },
         y: {
           duration: 0.7, // Même durée que la réduction de hauteur
-          ease: "easeOut"
-        }
-      }
-    }
+          ease: 'easeOut',
+        },
+      },
+    },
   };
-  
+
   // Animation globale du texte qui monte de 100px
   const textContainerVariants: Variants = {
     initial: { y: 100 },
@@ -46,41 +46,41 @@ export default function IntroAnimation() {
       y: -50,
       transition: {
         duration: 4,
-        ease: "easeOut"
-      }
-    }
+        ease: 'easeOut',
+      },
+    },
   };
-  
+
   const textVariants = {
     initial: { opacity: 0 },
     animate: {
       opacity: 1,
       transition: {
         staggerChildren: 0.06,
-        delayChildren: 0.4
-      }
-    }
+        delayChildren: 0.4,
+      },
+    },
   };
-  
+
   const letterVariants = {
     initial: {
       y: 500,
       opacity: 0,
-      filter: "blur(50px)",
-      scale: 0.7
+      filter: 'blur(50px)',
+      scale: 0.7,
     },
     animate: {
       y: 0,
       opacity: 1,
-      filter: "blur(0px)",
+      filter: 'blur(0px)',
       scale: 1,
       transition: {
         duration: 0.6,
         ease: [0.1, 0.8, 0.2, 0.95],
         opacity: { duration: 0.7, ease: [0, 0.9, 0.2, 1] },
-        filter: { duration: 0.6, ease: [0, 0.85, 0.25, 1] }
-      }
-    }
+        filter: { duration: 0.6, ease: [0, 0.85, 0.25, 1] },
+      },
+    },
   };
   //  bg-[url(/background.png)]
   return (
@@ -90,7 +90,6 @@ export default function IntroAnimation() {
       initial="initial"
       exit="exit"
     >
-      
       {/* Conteneur avec animation de déplacement vers le haut */}
       <motion.div
         className="relative"
@@ -99,7 +98,9 @@ export default function IntroAnimation() {
         animate="animate"
       >
         <motion.div
-          className={"text-white text-3xl md:text-5xl font-bold " + poppins.className}
+          className={
+            'text-white text-3xl md:text-5xl font-bold ' + poppins.className
+          }
           variants={textVariants}
           initial="initial"
           animate="animate"
@@ -111,7 +112,7 @@ export default function IntroAnimation() {
               variants={letterVariants}
               style={{
                 display: 'inline-block',
-                willChange: 'transform, opacity, filter'
+                willChange: 'transform, opacity, filter',
               }}
             >
               {char === ' ' ? '\u00A0' : char}
