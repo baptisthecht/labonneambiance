@@ -52,7 +52,7 @@ export const Projects = () => {
   ];
   return (
     <>
-      <div className="p-20 flex justify-between items-center">
+      <div className="p-20 flex flex-col sm:flex-row justify-between items-center">
         <p className="text-gray-500">(27)</p>
         <div>
           <p className="text-[144px] font-semibold tracking-tighter text-black">
