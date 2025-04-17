@@ -1,8 +1,5 @@
 import { motion, Variants } from 'framer-motion';
-import { Poppins } from 'next/font/google';
 import { useEffect, useState } from 'react';
-
-const poppins = Poppins({ weight: '700', subsets: ['latin'] });
 
 export default function IntroAnimation() {
   // Utiliser un état pour monter le composant seulement côté client
@@ -98,9 +95,7 @@ export default function IntroAnimation() {
         animate="animate"
       >
         <motion.div
-          className={
-            'text-white text-3xl md:text-5xl font-bold ' + poppins.className
-          }
+          className={'text-white text-3xl md:text-5xl font-bold font-poppins'}
           variants={textVariants}
           initial="initial"
           animate="animate"

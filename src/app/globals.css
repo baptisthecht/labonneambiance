@@ -1,15 +1,16 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   --color-black: #0a0a0a;
-  --color-silver: rgb(245,245,245)
+  --color-silver: rgb(245, 245, 245);
+  --font-poppins: var(--font-poppins);
 }
 
 body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  font-family: sans-serif;
+  font-family: var(--font-poppins), sans-serif;
 }
 
 /* Assurez-vous que le conteneur d'animation couvre tout l'écran */
