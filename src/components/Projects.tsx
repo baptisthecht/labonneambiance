@@ -67,7 +67,7 @@ export const Projects = () => {
       </div>
       <div className="h-20"></div>
       <motion.div style={{ y: grid_y, scale }}>
-        <div className="grid grid-cols-2 px-40 gap-1">
+        <div className="grid grid-cols-1 sm:grid-cols-2 px-4 sm:px-40 gap-1">
           {projects.map((project, i) => (
             <ProjectCard key={i} project={project} />
           ))}

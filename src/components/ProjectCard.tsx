@@ -6,7 +6,7 @@ import { Project } from './Projects';
 export function ProjectCard({ project }: { project: Project }) {
   const [hover, setHover] = useState(false);
   const ease = [0.84, 0.01, 0.51, 0.96];
-  const duration = 0.6;
+  const duration = 0.5;
   const type = 'tween';
   const transition = { ease, duration, type };
   return (
