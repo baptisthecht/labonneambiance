@@ -103,16 +103,14 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
           {phase !== 'idle' && (
             <motion.div
               key="page-transition-overlay"
-              initial={{ y: phase === 'covering' ? '100%' : 0 }}
+              initial={{ y: '100%' }}
               animate={{
                 y: phase === 'covering' ? 0 : '-100%',
-                transition: {
-                  duration: phase === 'covering' ? 0.6 : 0.8, // Sortie beaucoup plus lente
-                  ease:
-                    phase === 'covering'
-                      ? [0.62, 0, 0.66, 1.05] // Ease out pour l'entrée
-                      : [0.16, 1, 0.3, 1], // Courbe plus traînante pour la sortie
-                },
+              }}
+              transition={{
+                type: 'tween',
+                duration: 0.6,
+                ease: [0.4, 0, 0.2, 1],
               }}
               onAnimationComplete={() => {
                 if (phase === 'covering') {
@@ -130,6 +128,8 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
                 backgroundColor: '#0f0f0f',
                 zIndex: 9999,
                 pointerEvents: 'none',
+                transform: 'translateZ(0)',
+                willChange: 'transform',
               }}
             />
           )}

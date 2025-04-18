@@ -1,5 +1,6 @@
 import { OmbrePearl7 } from '@ombre-ui/react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { Sparkle } from 'lucide-react';
 import GlassmorphismCard from './GlassCard';
 
 export const Hero = () => {
@@ -19,14 +20,8 @@ export const Hero = () => {
     >
       <OmbrePearl7 />
       <div className="flex flex-col justify-between">
-        <GlassmorphismCard>
-          <p className="text-center z-1 font-medium text-[22px] p-10 mt-auto text-white tracking-tighter">
-            Une relation saine. Une expérience <br /> utile.{' '}
-            <span className="opacity-70">
-              Trouver le sixième sens de la marque pour <br /> faire émerger
-              votre supplément d&apos;âme.
-            </span>
-          </p>
+        <GlassmorphismCard className="p-10 h-auto w-min">
+          <Sparkle className="text-white size-4" />
         </GlassmorphismCard>
         <p className="text-center z-1 font-medium text-[22px] p-10 mt-auto text-white tracking-tighter">
           Une relation saine. Une expérience <br /> utile.{' '}

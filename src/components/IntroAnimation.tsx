@@ -82,7 +82,7 @@ export default function IntroAnimation() {
   //  bg-[url(/background.png)]
   return (
     <motion.div
-      className="fixed inset-0 flex items-center justify-center overflow-hidden z-50 bg-cover bg-center bg-black"
+      className="fixed inset-0 flex items-center justify-center overflow-hidden z-50 bg-cover bg-center bg-light-black"
       variants={containerVariants}
       initial="initial"
       exit="exit"

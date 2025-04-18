@@ -4,6 +4,7 @@
   --color-black: #0a0a0a;
   --color-silver: rgb(245, 245, 245);
   --font-poppins: var(--font-poppins);
+  --color-light-black: #0f0f0f;
 }
 
 body {

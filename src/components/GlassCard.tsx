@@ -1,8 +1,10 @@
+import { cn } from '@/lib/utils/cn';
 import { Squircle } from '@squircle-js/react';
 import { JSX, ReactNode, useEffect, useRef, useState } from 'react';
 
 interface GlassmorphismCardProps {
   children: ReactNode;
+  className?: string;
 }
 
 interface Position {
@@ -12,6 +14,7 @@ interface Position {
 
 const GlassmorphismCard = ({
   children,
+  className,
 }: GlassmorphismCardProps): JSX.Element => {
   // For tracking current and target mouse positions
   const [haloPosition, setHaloPosition] = useState<Position>({ x: 0, y: 0 });
@@ -62,7 +65,10 @@ const GlassmorphismCard = ({
     <Squircle
       cornerRadius={24}
       cornerSmoothing={0.5}
-      className="relative p-6 bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-xl shadow-black/5 overflow-hidden cursor-none"
+      className={cn(
+        'relative p-6 bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-xl shadow-black/5 overflow-hidden cursor-none w-min',
+        className
+      )}
       onMouseEnter={(): void => setIsHovering(true)}
       onMouseLeave={(): void => setIsHovering(false)}
       onMouseMove={handleMouseMove}
