@@ -13,9 +13,9 @@ export const Hero = () => {
       style={{
         scale,
       }}
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1, ease: [0, 0.9, 0.8, 1] }}
+      initial={{ y: 40 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 1, ease: [0.25, 1.19, 0.92, 0.96] }}
       className="flex justify-between mt-14 gap-6 p-6 flex-1 bg-slate-900 m-1.5 rounded-3xl relative overflow-hidden min-h-[calc(100dvh-68px)] z-20"
     >
       <OmbrePearl7 />

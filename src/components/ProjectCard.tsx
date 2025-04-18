@@ -1,7 +1,7 @@
+import { Project } from '@/lib/utils/vars';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';
-import { Project } from './Projects';
 
 export function ProjectCard({ project }: { project: Project }) {
   const [hover, setHover] = useState(false);
@@ -56,7 +56,7 @@ export function ProjectCard({ project }: { project: Project }) {
           <motion.div
             className="bg-black w-full h-full absolute z-1 rounded-2xl"
             animate={{
-              opacity: hover ? 0.25 : 0.15,
+              opacity: hover ? 0.2 : 0.15,
             }}
             transition={transition}
           ></motion.div>
