@@ -1,11 +1,12 @@
-import PageTransition from '@/components/PageTransition';
+import BrowserNavigationHandler from '@/components/BrowserNavigationHandler';
+import { TransitionProvider } from '@/components/TransitionSystem';
 import { Inter } from 'next/font/google';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'Mon site',
+  title: 'La bonne ambiance*',
   description: 'Super transition',
 };
 
@@ -17,7 +18,10 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className={inter.className}>
-        <PageTransition>{children}</PageTransition>
+        <TransitionProvider>
+          {children}
+          <BrowserNavigationHandler />
+        </TransitionProvider>
       </body>
     </html>
   );

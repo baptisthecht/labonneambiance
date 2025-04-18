@@ -1,30 +1,32 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { MouseEvent, ReactNode } from 'react';
+import { useTransition } from './TransitionSystem';
 
-type Props = {
+interface TransitionLinkProps {
   href: string;
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
-};
+  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
+}
 
-export function TransitionLink({ href, children, className }: Props) {
-  const router = useRouter();
-  const [isTransitioning, setIsTransitioning] = useState(false);
+export default function TransitionLink({
+  href,
+  children,
+  className,
+  onClick,
+}: TransitionLinkProps) {
+  const { startTransition } = useTransition();
 
-  const handleClick = (e: React.MouseEvent) => {
+  const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
+    // Empêcher la navigation immédiate
     e.preventDefault();
-    if (isTransitioning) return;
 
-    setIsTransitioning(true);
+    // Appeler le onClick personnalisé si fourni
+    if (onClick) onClick(e);
 
-    // Déclenche un événement custom que le composant TransitionOverlay va écouter
-    document.dispatchEvent(new Event('startTransition'));
-
-    setTimeout(() => {
-      router.push(href);
-    }, 500); // attendre que le voile recouvre l'écran
+    // Démarrer la transition vers la nouvelle page
+    startTransition(href);
   };
 
   return (

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import Link from 'next/link';
+import TransitionLink from './TransitionLink';
 
 export const Nav = () => {
   return (
@@ -18,7 +18,7 @@ export const Nav = () => {
 };
 
 export const NavLink = ({ label, path }: { label: string; path: string }) => (
-  <Link href={path} className="p-2">
+  <TransitionLink href={path} className="p-2">
     {label}
-  </Link>
+  </TransitionLink>
 );

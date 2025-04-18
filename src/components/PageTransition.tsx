@@ -1,49 +1,49 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import TransitionOverlay from './TransitionOverlay';
 
-export default function PageTransition({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function PageTransition({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const previousPath = useRef(pathname);
+  const previousPathname = useRef(pathname);
 
+  // État pour gérer la transition
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [displayedContent, setDisplayedContent] = useState(children);
+
+  // État pour stocker le contenu actuel et précédent
+  const [displayedChildren, setDisplayedChildren] = useState(children);
 
   useEffect(() => {
-    if (previousPath.current !== pathname) {
-      // Début de la transition : on garde l’ancien contenu visible
+    // Vérifier si le chemin a changé
+    if (previousPathname.current !== pathname) {
+      // Début de la transition - on garde l'ancien contenu visible
       setIsTransitioning(true);
 
-      // Laisser le voile monter
-      const delay = 500;
+      // Phase 1: Le voile monte (500ms)
+      const timeoutToChangeContent = setTimeout(() => {
+        // Une fois que le voile a couvert l'écran, on change le contenu
+        setDisplayedChildren(children);
 
-      const timeout = setTimeout(() => {
-        // Une fois le voile en haut → on change le contenu
-        setDisplayedContent(children);
-        previousPath.current = pathname;
-
-        // Laisser le temps au voile de repartir
-        setTimeout(() => {
+        // Phase 2: Le voile redescend (500ms)
+        const timeoutToFinishTransition = setTimeout(() => {
           setIsTransitioning(false);
-        }, 500); // durée du exit
-      }, delay);
+          previousPathname.current = pathname;
+        }, 500);
 
-      return () => clearTimeout(timeout);
+        return () => clearTimeout(timeoutToFinishTransition);
+      }, 500);
+
+      return () => clearTimeout(timeoutToChangeContent);
     } else {
-      // première fois ou navigation pas changée → on sync le contenu direct
-      setDisplayedContent(children);
+      // Premier rendu ou retour à la même page
+      setDisplayedChildren(children);
     }
   }, [pathname, children]);
 
   return (
     <>
-      {displayedContent}
+      {displayedChildren}
       <TransitionOverlay trigger={isTransitioning} />
     </>
   );
