@@ -91,7 +91,18 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
     >
       <div className="relative">
         {/* Contenu actuel de la page */}
-        <div className="page-content">{displayedChildren}</div>
+        <motion.div
+          className="page-content"
+          animate={{
+            y: phase === 'covering' ? '-300px' : 0,
+            transition: {
+              duration: phase === 'covering' ? 1.8 : 0,
+              ease: [0.32, 0.72, 0, 1],
+            },
+          }}
+        >
+          {displayedChildren}
+        </motion.div>
 
         {/* Voile de transition */}
         <AnimatePresence mode="wait">
