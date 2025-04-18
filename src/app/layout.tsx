@@ -1,5 +1,4 @@
-import BrowserNavigationHandler from '@/components/BrowserNavigationHandler';
-import { TransitionProvider } from '@/components/TransitionSystem';
+import { PageTransitionProvider } from '@/components/PageTransitionSystem';
 import { Inter } from 'next/font/google';
 import './globals.css';
 
@@ -18,10 +17,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className={inter.className}>
-        <TransitionProvider>
-          {children}
-          <BrowserNavigationHandler />
-        </TransitionProvider>
+        <PageTransitionProvider>{children}</PageTransitionProvider>
       </body>
     </html>
   );

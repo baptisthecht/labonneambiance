@@ -1,7 +1,7 @@
 'use client';
 
 import { MouseEvent, ReactNode } from 'react';
-import { useTransition } from './TransitionSystem';
+import { usePageTransition } from './PageTransitionSystem';
 
 interface TransitionLinkProps {
   href: string;
@@ -16,17 +16,16 @@ export default function TransitionLink({
   className,
   onClick,
 }: TransitionLinkProps) {
-  const { startTransition } = useTransition();
+  const { startPageTransition } = usePageTransition();
 
   const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
-    // Empêcher la navigation immédiate
     e.preventDefault();
 
-    // Appeler le onClick personnalisé si fourni
+    // Exécuter le onClick personnalisé si fourni
     if (onClick) onClick(e);
 
     // Démarrer la transition vers la nouvelle page
-    startTransition(href);
+    startPageTransition(href);
   };
 
   return (
