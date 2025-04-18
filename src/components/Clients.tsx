@@ -11,7 +11,7 @@ export function Clients() {
     <motion.div style={{ y, scale: containerScale }} className="px-40 mb-20">
       <div className="flex gap-2 py-16 items-center">
         <p className="bg-black size-4.5 rounded-full flex items-center justify-center">
-          <span className="text-white font-semibold">+</span>
+          <span className="text-white font-bold -translate-y-px">+</span>
         </p>
         <p>Nos clients</p>
         <p className="ml-64">
