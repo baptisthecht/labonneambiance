@@ -13,15 +13,23 @@ import {
 // Types pour le contexte
 type TransitionContextType = {
   startPageTransition: (url: string) => void;
+  isTransitioning: boolean;
 };
 
 // Création du contexte
 const TransitionContext = createContext<TransitionContextType>({
   startPageTransition: () => {},
+  isTransitioning: false,
 });
 
 // Hook pour utiliser le contexte de transition
 export const usePageTransition = () => useContext(TransitionContext);
+
+// Configuration de l'animation pour un voile plus fluide
+const transitionConfig = {
+  duration: 0.5, // Encore plus rapide
+  ease: [0.84, 0.01, 0.51, 0.96],
+};
 
 // Composant principal de gestion des transitions
 export function PageTransitionProvider({ children }: { children: ReactNode }) {
@@ -35,25 +43,14 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
 
   // Fonction pour démarrer une transition de page
   const startPageTransition = (url: string) => {
+    // Ne rien faire si déjà en transition
     if (isTransitioning) return;
 
-    console.log('Starting transition to:', url);
+    console.log('Démarrage de la transition vers:', url);
     setTargetUrl(url);
     setIsTransitioning(true);
     setPhase('covering');
   };
-
-  // Effet pour gérer les phases de transition
-  useEffect(() => {
-    if (phase === 'covering' && targetUrl) {
-      // La phase 'covering' est gérée par l'animation du voile
-      console.log('Phase: covering');
-    } else if (phase === 'uncovering') {
-      console.log('Phase: uncovering');
-      // La phase 'uncovering' est gérée par l'animation du voile
-      // Une fois terminée, on revient à 'idle' grâce à l'événement onAnimationComplete
-    }
-  }, [phase, targetUrl]);
 
   // Mise à jour du contenu affiché quand les enfants changent et qu'on n'est pas en transition
   useEffect(() => {
@@ -64,29 +61,34 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
 
   // Gestionnaire pour quand le voile a fini de monter
   const handleCoveringComplete = () => {
-    console.log('Covering animation completed, navigating to:', targetUrl);
+    console.log('Voile complètement monté, navigation vers:', targetUrl);
     if (targetUrl) {
+      // Navigation vers la nouvelle URL
       router.push(targetUrl);
 
-      // Mettre à jour le contenu après la navigation
+      // Attendre un court instant pour que le nouveau contenu soit chargé
       setTimeout(() => {
-        console.log('Updating content and starting uncovering phase');
+        console.log(
+          'Mise à jour du contenu et début de la phase de découverte'
+        );
         setDisplayedChildren(children);
         setPhase('uncovering');
-      }, 100); // Petit délai pour s'assurer que le contenu est prêt
+      }, 100); // Délai très court pour une transition rapide
     }
   };
 
   // Gestionnaire pour quand le voile a fini de descendre
   const handleUncoveringComplete = () => {
-    console.log('Uncovering animation completed, transition finished');
+    console.log('Animation terminée, transition complète');
     setIsTransitioning(false);
     setTargetUrl(null);
     setPhase('idle');
   };
 
   return (
-    <TransitionContext.Provider value={{ startPageTransition }}>
+    <TransitionContext.Provider
+      value={{ startPageTransition, isTransitioning }}
+    >
       <div className="relative">
         {/* Contenu actuel de la page */}
         <div className="page-content">{displayedChildren}</div>
@@ -99,10 +101,7 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
               initial={{ y: phase === 'covering' ? '100%' : 0 }}
               animate={{
                 y: phase === 'covering' ? 0 : '-100%',
-                transition: {
-                  duration: 0.7,
-                  ease: [0.43, 0.13, 0.23, 0.96], // Courbe d'accélération personnalisée
-                },
+                transition: transitionConfig,
               }}
               onAnimationComplete={() => {
                 if (phase === 'covering') {
@@ -117,7 +116,7 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
                 left: 0,
                 width: '100%',
                 height: '100%',
-                backgroundColor: '#000',
+                backgroundColor: '#0a0a0a',
                 zIndex: 9999,
                 pointerEvents: 'none',
               }}
