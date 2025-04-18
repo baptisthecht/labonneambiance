@@ -20,7 +20,7 @@ export default function Page() {
           duration: 1,
         }}
       >
-        <p className="p-40 text-[156px] font-black">Clients</p>
+        <p className="p-40 text-[156px] font-black">{"L'agence"}</p>
       </motion.div>
     </div>
   );

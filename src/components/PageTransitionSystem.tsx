@@ -25,12 +25,6 @@ const TransitionContext = createContext<TransitionContextType>({
 // Hook pour utiliser le contexte de transition
 export const usePageTransition = () => useContext(TransitionContext);
 
-// Configuration de l'animation pour un voile plus fluide
-const transitionConfig = {
-  duration: 0.5, // Encore plus rapide
-  ease: [0.84, 0.01, 0.51, 0.96],
-};
-
 // Composant principal de gestion des transitions
 export function PageTransitionProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
@@ -73,7 +67,7 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
         );
         setDisplayedChildren(children);
         setPhase('uncovering');
-      }, 100); // Délai très court pour une transition rapide
+      }, 50); // Délai très court pour une transition rapide
     }
   };
 
@@ -96,8 +90,8 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
           animate={{
             y: phase === 'covering' ? '-300px' : 0,
             transition: {
-              duration: phase === 'covering' ? 1.8 : 0,
-              ease: [0.32, 0.72, 0, 1],
+              duration: phase === 'covering' ? 0.8 : 0,
+              ease: [0.62, 0, 0.66, 1.05],
             },
           }}
         >
@@ -112,7 +106,13 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
               initial={{ y: phase === 'covering' ? '100%' : 0 }}
               animate={{
                 y: phase === 'covering' ? 0 : '-100%',
-                transition: transitionConfig,
+                transition: {
+                  duration: phase === 'covering' ? 0.6 : 0.8, // Sortie beaucoup plus lente
+                  ease:
+                    phase === 'covering'
+                      ? [0.62, 0, 0.66, 1.05] // Ease out pour l'entrée
+                      : [0.16, 1, 0.3, 1], // Courbe plus traînante pour la sortie
+                },
               }}
               onAnimationComplete={() => {
                 if (phase === 'covering') {
@@ -127,7 +127,7 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
                 left: 0,
                 width: '100%',
                 height: '100%',
-                backgroundColor: '#0a0a0a',
+                backgroundColor: '#0f0f0f',
                 zIndex: 9999,
                 pointerEvents: 'none',
               }}
