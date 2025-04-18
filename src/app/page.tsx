@@ -14,11 +14,9 @@ export default function Home() {
   const [showIntro, setShowIntro] = useState<boolean>(true);
 
   useEffect(() => {
-    // Après un certain délai, on cachera l'animation d'intro
     const timer = setTimeout(() => {
       setShowIntro(false);
-    }, 2000); // Réduit pour déclencher la sortie plus tôt
-
+    }, 2000);
     return () => clearTimeout(timer);
   }, []);
 
