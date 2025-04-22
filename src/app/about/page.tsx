@@ -1,11 +1,13 @@
 'use client';
 import { Nav } from '@/components/Nav';
+import { RollingText } from '@/components/RollingText';
 import { motion } from 'framer-motion';
 
 export default function Page() {
   return (
     <div>
       <Nav />
+      <div className="h-80"></div>
       <motion.div
         initial={{
           y: 200,
@@ -20,7 +22,7 @@ export default function Page() {
           duration: 1,
         }}
       >
-        <p className="p-40 text-[156px] font-black">{'À propos'}</p>
+        <RollingText />
       </motion.div>
     </div>
   );

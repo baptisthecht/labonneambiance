@@ -88,9 +88,9 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
         <motion.div
           className="page-content"
           animate={{
-            y: phase === 'covering' ? '-300px' : 0,
+            y: phase === 'covering' ? '-240px' : 0,
             transition: {
-              duration: phase === 'covering' ? 0.8 : 0,
+              duration: phase === 'covering' ? 0.4 : 0,
               ease: [0.62, 0, 0.66, 1.05],
             },
           }}
@@ -109,7 +109,7 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
               }}
               transition={{
                 type: 'tween',
-                duration: 0.4,
+                duration: 0.3,
                 ease: [0.4, 0, 0.2, 1],
               }}
               onAnimationComplete={() => {
